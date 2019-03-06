@@ -1,0 +1,83 @@
+﻿@using Westwind.AspNetCore.Markdown
+@using ITNews.Domain.Contracts.ViewModels
+@using ITNews.Data.Contracts.Entities
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<UserEntity> userManager
+@model ITNews.Domain.Contracts.ViewModels.NewsViewModel
+
+@{
+	ViewData["Title"] = "Details";
+	Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<div class="card">
+	<div class="card-body">
+		<div id="@Model.NewsId-news-body">
+			<div class="row">
+				<div class="col-12">
+					<div class="panel-heading">
+						<strong>@Model.User.UserName (@Model.User.Likes.Count())</strong><span class="text-muted"> @ViewData["PostedAt"] @Model.Created</span>
+						<span class="badge badge-danger">@Model.Section.Name</span>
+						@foreach (var tag in Model.Tags)
+						{
+							<span class="badge badge-primary">@tag.Tag.Name</span>
+						}
+					</div>
+					<div class="panel-body">
+						<h4>
+							@Html.ActionLink(Model.Title, "Details", new { newsId = Model.NewsId })
+						</h4>
+					</div>
+				</div>
+			</div>
+			<h5>
+				@Markdown.ParseHtmlString(Model.Content)
+			</h5>
+			<img class="rounded" src="@Model.Description" alt="@Model.NewsId-img" style="width:100%; height:auto;" />
+			@if (Model.User.UserName == User.Identity.Name || User.IsInRole("admin"))
+			{
+				@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", new { newsId = Model.NewsId })
+				<span> | </span>
+				@Html.ActionLink(ViewData["Delete"].ToString(), "Delete", new { newsId = Model.NewsId })
+			}
+
+			<div class="row">
+				<div class="col-md-12">
+					<span class="text-muted" id="newsId">@Model.NewsId</span>
+				</div>
+			</div>
+
+			@if (User.Identity.IsAuthenticated && userManager.GetUserAsync(User).Result.EmailConfirmed)
+			{
+				if (Model.Ratings.SingleOrDefault(x => x.User.UserName == User.Identity.Name) == null)
+				{
+					<partial name="../NewsRating/Rating" model="new NewsRatingViewModel()" />
+				}
+			}
+
+			<hr />
+			<div id="@Model.NewsId-comments">
+				<h5>
+					@ViewData["Comments"]
+				</h5>
+				<div id="commentList">
+					@if (Model.Comments.Count() > 0)
+					{
+						<partial name="../Comment/Index" model="Model.Comments.OrderByDescending(x => x.Created)" />
+					}
+					else
+					{
+						<h5 id="noComments">
+							@ViewData["NoComments"]
+						</h5>
+					}
+				</div>
+				@if (User.Identity.IsAuthenticated && userManager.GetUserAsync(User).Result.EmailConfirmed)
+				{
+					<partial name="../Comment/Create" model="new CommentViewModel()" />
+				}
+			</div>
+		</div>
+	</div>
+</div>
+

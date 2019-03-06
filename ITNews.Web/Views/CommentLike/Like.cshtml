@@ -1,0 +1,9 @@
+﻿@model ITNews.Domain.Contracts.ViewModels.CommentLikeViewModel
+
+<button type="button" id="like" class="btn btn-primary btn-sm likeClass">
+	Like
+</button>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

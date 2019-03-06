@@ -1,0 +1,15 @@
+﻿@model ITNews.Domain.Contracts.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<h3>Are you sure you want to delete @Model.UserName?</h3>
+<div>
+    <hr />
+    
+    <form asp-action="Delete">
+		<input asp-action="Delete" asp-route-userId="@Model.Id" type="submit" value="Delete" class="btn btn-danger" />
+    </form>
+</div>

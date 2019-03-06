@@ -1,0 +1,21 @@
+﻿@model ITNews.Domain.Contracts.ViewModels.CommentViewModel
+
+<hr />
+<div class="row">
+	<div class="col-md-6">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<textarea asp-for="Content" id="content" class="form-control" placeholder="Comment"></textarea>
+				<span asp-validation-for="Content" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<button id="submitButton" value="submit" class="btn btn-primary">Comment</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

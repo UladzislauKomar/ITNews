@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190123134643_Initial.cs" />
+    <Compile Remove="Migrations\20190123135045_Initial.cs" />
+    <Compile Remove="Migrations\20190212201540_fix-news-tag.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Repositories\SectionRepository.cs~RF10c2d9b3.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ITNews.Data.Contracts\ITNews.Data.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

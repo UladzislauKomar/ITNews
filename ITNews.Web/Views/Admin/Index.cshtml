@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ITNews.Domain.Contracts.ViewModels.UserViewModel>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+@foreach (var item in Model)
+{
+	<div class="card">
+		<div class="card-header">
+			<strong>@item.UserName</strong>
+			@if (item.LockoutEnd != null)
+			{
+				<span class="badge badge-danger">BLOCKED (until @item.LockoutEnd.Value.Date)</span>
+			}
+			@if (!item.EmailConfirmed)
+			{
+				<span class="badge badge-danger">Unconfirmed</span>
+			}
+			<span class="badge badge-success">@item.Id</span>
+		</div>
+		<div class="card-body">
+			<h5>
+				@item.FirstName @item.LastName
+			</h5>
+			<p>
+				@item.Description
+			</p>
+			<p>
+				Birthdate: @item.Birthdate.Date.ToShortDateString()
+			</p>
+			<p>
+				@item.Email
+			</p>
+			@Html.ActionLink("Profile", "Profile", "User", new { userName = item.UserName}) |
+			@Html.ActionLink("Edit", "Edit", new { userId = item.Id }) |
+			@Html.ActionLink("Delete", "Delete", new { userId = item.Id })
+		</div>
+	</div>
+}

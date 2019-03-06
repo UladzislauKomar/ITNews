@@ -1,0 +1,18 @@
+﻿@model ITNews.Domain.Contracts.ViewModels.NewsViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<div>
+	<h1>@ViewData["Delete"] "@Model.Title"?</h1>
+
+	<h3>@ViewData["YouSure"]</h3>
+	<hr />
+
+	<form asp-action="Delete">
+		<input asp-action="Delete" asp-route-newsId="@Model.NewsId" type="submit" value="@ViewData["Delete"]" class="btn btn-danger" /> |
+		<a asp-action="Index">@ViewData["Back"]</a>
+	</form>
+</div>

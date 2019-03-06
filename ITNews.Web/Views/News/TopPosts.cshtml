@@ -1,0 +1,58 @@
+﻿@using Westwind.AspNetCore.Markdown
+@model IEnumerable<ITNews.Domain.Contracts.ViewModels.NewsViewModel>
+
+@{
+	ViewData["Title"] = "Top posts of all time";
+	Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8">
+			@foreach (var item in Model)
+			{
+			<div id="@item.NewsId-news-body" class="card bg-light mb-3" style="margin-bottom:16px;">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<a asp-action="Profile" asp-controller="User" asp-route-userName="@item.User.UserName"><strong>@item.User.UserName (@item.User.Likes.Count())</strong></a><span class="text-muted"> @ViewData["PostedAt"] @item.Created</span>
+						</div>
+						<div class="col-12">
+							<span class="badge badge-danger">@item.Section.Name</span>
+							@foreach (var tag in item.Tags)
+							{
+								<span class="badge badge-primary">@tag.Tag.Name</span>
+							}
+						</div>
+						<div class="col-12">
+							<h4>
+								@Html.ActionLink(item.Title, "Details", new { newsId = item.NewsId })
+							</h4>
+						</div>
+					</div>
+					<div>
+						<img class="rounded" src="@item.Description" alt="@item.NewsId-img" style="width:100%; height:auto;" />
+					</div>
+
+					@if (item.Ratings.Count() > 0)
+					{
+						var rating = (int)(item.Ratings.Select(x => x.Rating).Average() * 100);
+						<div class="progress" style="width:100%;">
+							<div class="progress-bar bg-success" role="progressbar" style="width: @rating%" aria-valuemin="0" aria-valuemax="100">@rating%</div>
+						</div>
+					}
+
+					@if (item.User.UserName == User.Identity.Name || User.IsInRole("admin"))
+					{
+						@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", new { newsId = item.NewsId })
+						<span> | </span>
+						@Html.ActionLink(ViewData["Delete"].ToString(), "Delete", new { newsId = item.NewsId })
+					}
+				</div>
+			</div>
+			<hr />
+			}
+		</div>
+	</div>
+</div>
+

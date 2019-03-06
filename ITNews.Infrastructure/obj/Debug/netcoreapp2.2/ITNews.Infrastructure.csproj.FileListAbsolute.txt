@@ -1,0 +1,14 @@
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\bin\Debug\netcoreapp2.2\ITNews.Infrastructure.deps.json
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\bin\Debug\netcoreapp2.2\ITNews.Infrastructure.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\obj\Debug\netcoreapp2.2\ITNews.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\obj\Debug\netcoreapp2.2\ITNews.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\obj\Debug\netcoreapp2.2\ITNews.Infrastructure.AssemblyInfo.cs
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\bin\Debug\netcoreapp2.2\ITNews.Infrastructure.pdb
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\bin\Debug\netcoreapp2.2\ITNews.Data.Contracts.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\bin\Debug\netcoreapp2.2\ITNews.Domain.Contracts.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\bin\Debug\netcoreapp2.2\ITNews.Data.Contracts.pdb
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\bin\Debug\netcoreapp2.2\ITNews.Domain.Contracts.pdb
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\obj\Debug\netcoreapp2.2\ITNews.Infrastructure.csprojAssemblyReference.cache
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\obj\Debug\netcoreapp2.2\ITNews.Infrastructure.csproj.CopyComplete
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\obj\Debug\netcoreapp2.2\ITNews.Infrastructure.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Infrastructure\obj\Debug\netcoreapp2.2\ITNews.Infrastructure.pdb

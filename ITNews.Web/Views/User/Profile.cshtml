@@ -1,0 +1,114 @@
+﻿@model ITNews.Domain.Contracts.ViewModels.UserViewModel
+@using Westwind.AspNetCore.Markdown
+
+@{
+	ViewData["Title"] = "Profile";
+	Layout = "~/Views/Shared/_CustomLayout.cshtml";
+}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			@foreach (var item in Model.News.OrderByDescending(x => x.Created))
+			{
+				<div id="@item.NewsId-news-body" class="card bg-light mb-3" style="margin-bottom:16px;">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12">
+								<a asp-action="Profile" asp-controller="User" asp-route-userName="@item.User.UserName"><strong>@item.User.UserName (@item.User.Likes.Count())</strong></a><span class="text-muted"> @ViewData["At"] @item.Created</span>
+							</div>
+							<div class="col-12">
+								<h4>
+									@Html.ActionLink(item.Title, "Details", "News", new { newsId = item.NewsId })
+								</h4>
+							</div>
+						</div>
+						<div>
+							<img class="rounded" src="@item.Description" alt="@item.NewsId-img" style="width:100%; height:auto;" />
+						</div>
+
+						@if (item.User.UserName == User.Identity.Name || User.IsInRole("admin"))
+						{
+							@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", "News", new { newsId = item.NewsId })
+							<span> | </span>
+							@Html.ActionLink(ViewData["Delete"].ToString(), "Delete", "News", new { newsId = item.NewsId })
+						}
+					</div>
+				</div>
+				<hr />
+			}
+			@if(Model.News.Count() == 0)
+			{
+				<h2>
+					@ViewData["NoPosts"]
+				</h2>
+			}
+		</div>
+		<div class="col-md-4">
+			<div class="card bg-light mb-3" style="max-width: 20rem;">
+				<div class="card-header">@Model.UserName<span class="badge badge-success">@ViewData["role"]</span></div>
+				<div class="card-body">
+					<div class="container" id="profile">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card-title" id="fullName">@Model.FirstName @Model.LastName</div>
+							</div>
+							<div class="col-md-6">
+								<p class="card-text">@ViewData["Birthdate"]</p>
+							</div>
+							<div class="col-md-6">
+								<p class="card-text" id="birthdate">@Html.DisplayFor(x => x.Birthdate)</p>
+							</div>
+							<div class="col-md-12">
+								<h5 class="card-text">@ViewData["About"]</h5>
+							</div>
+							<div class="col-md-12">
+								<p class="card-text" id="description">@Model.Description</p>
+							</div>
+							@if (User.Identity.Name == Model.UserName)
+							{
+								<div class="col-md-12">
+									<button class="btn btn-success" id="editButton">@ViewData["Edit"]</button>
+								</div>
+							}
+						</div>
+					</div>
+					@if (User.Identity.Name == Model.UserName)
+					{
+						<div class="container" id="editProfile" style="display: none;">
+							<div class="row">
+								<form asp-action="Profile">
+									<input asp-for="Id" type="hidden" />
+									<input asp-for="UserName" type="hidden" />
+									<div class="col-md-12">
+										<label asp-for="FirstName">@ViewData["Firstname"]</label>
+										<input asp-for="FirstName" style="width:100%;" />
+									</div>
+									<div class="col-md-12">
+										<label asp-for="LastName">@ViewData["Lastname"]</label>
+										<input asp-for="LastName" style="width:100%;" />
+									</div>
+									<div class="col-md-12">
+										<label asp-for="Birthdate"></label>
+										<input asp-for="Birthdate" style="width:100%;" />
+									</div>
+									<div class="col-md-12">
+										<h5 class="card-text">@ViewData["About"]</h5>
+									</div>
+									<div class="col-md-12">
+										<textarea asp-for="Description" style="width:100%">@Model.Description</textarea>
+									</div>
+									<div class="col-md-12">
+										<input asp-action="Profile" type="submit" value="@ViewData["Edit"]" class="btn btn-success" />
+
+										<button class="btn btn-danger" id="cancelButton">@ViewData["Cancel"]</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

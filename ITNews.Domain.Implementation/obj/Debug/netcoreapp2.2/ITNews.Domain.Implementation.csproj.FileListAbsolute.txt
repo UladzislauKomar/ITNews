@@ -1,0 +1,16 @@
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\bin\Debug\netcoreapp2.2\ITNews.Domain.Implementation.deps.json
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\bin\Debug\netcoreapp2.2\ITNews.Domain.Implementation.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\bin\Debug\netcoreapp2.2\ITNews.Data.Contracts.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\bin\Debug\netcoreapp2.2\ITNews.Domain.Contracts.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\bin\Debug\netcoreapp2.2\ITNews.Data.Contracts.pdb
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\bin\Debug\netcoreapp2.2\ITNews.Domain.Contracts.pdb
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\obj\Debug\netcoreapp2.2\ITNews.Domain.Implementation.csprojAssemblyReference.cache
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\obj\Debug\netcoreapp2.2\ITNews.Domain.Implementation.csproj.CoreCompileInputs.cache
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\obj\Debug\netcoreapp2.2\ITNews.Domain.Implementation.AssemblyInfoInputs.cache
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\obj\Debug\netcoreapp2.2\ITNews.Domain.Implementation.AssemblyInfo.cs
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\obj\Debug\netcoreapp2.2\ITNews.Domain.Implementation.csproj.CopyComplete
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\bin\Debug\netcoreapp2.2\ITNews.Domain.Implementation.pdb
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\obj\Debug\netcoreapp2.2\ITNews.Domain.Implementation.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\obj\Debug\netcoreapp2.2\ITNews.Domain.Implementation.pdb
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.Abstractions.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Implementation\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.Abstractions.xml

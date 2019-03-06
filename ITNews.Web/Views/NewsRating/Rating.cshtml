@@ -1,0 +1,12 @@
+﻿@model ITNews.Domain.Contracts.ViewModels.NewsRatingViewModel
+
+<div class="row">
+	<div class="col-md-6">
+		<button type="button" class="btn btn-success likeNews">Like it!</button>
+		<button type="button" class="btn btn-danger dislikeNews">Don't like it!</button>
+	</div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

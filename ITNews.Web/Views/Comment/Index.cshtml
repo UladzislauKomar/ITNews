@@ -1,0 +1,50 @@
+﻿@using ITNews.Domain.Contracts.ViewModels
+@using ITNews.Data.Contracts.Entities
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<UserEntity> userManager
+@model IEnumerable<ITNews.Domain.Contracts.ViewModels.CommentViewModel>
+
+
+@foreach (var item in Model)
+{
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2 col-lg-1">
+				<div class="thumbnail">
+					<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" height="50" width="50">
+				</div>
+			</div>
+
+			<div class="col-md-9 col-lg-10">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<a asp-action="Profile" asp-controller="User" asp-route-userName="@item.User.UserName"><strong>@item.User.UserName (@item.User.Likes.Count())</strong></a><span class="text-muted"> commented at @item.Created</span>
+					</div>
+					<div class="panel-body">
+						@item.Content
+					</div>
+					<div id="@item.CommentId">
+						@if (User.Identity.IsAuthenticated && userManager.GetUserAsync(User).Result.EmailConfirmed)
+						{
+							@if (item.Likes.SingleOrDefault(x => x.User.UserName == User.Identity.Name) == null)
+							{
+								<div id="@item.CommentId-like">
+									<partial name="../CommentLike/Like" model="new CommentLikeViewModel()" /> <span>(@item.Likes.Count())</span>
+								</div>
+							}
+							else
+							{
+								<button type="button" class="btn btn-primary btn-sm" disabled>
+									Liked!
+								</button>
+								<span>(@item.Likes.Count())</span>
+							}
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+
