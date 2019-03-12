@@ -105,11 +105,6 @@ namespace ITNews.Web.Controllers
                 model.Comments = commentService.GetCommentsByNews(model);
                 model.User.Likes = commentLikeService.GetLikes().Where(x => x.Comment.UserId == model.User.Id);
                 model.Ratings = ratingService.GetRatingByNews(model);
-                foreach (var item in model.Comments)
-                {
-                    item.Likes = commentLikeService.GetLikesByComment(item);
-                    item.User.Likes = commentLikeService.GetLikes().Where(x => x.Comment.UserId == item.User.Id);
-                }
             }
             var topModels = models.Where(x => x.Ratings.Count() > 0)
                 .OrderByDescending(x => x.Ratings.Select(rate => rate.Rating).Average()).Take(20);
