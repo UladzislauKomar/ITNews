@@ -72,7 +72,7 @@ namespace ITNews.Web.Hubs
                     UserId = userModel.Id,
                     NewsId = newsId,
                     Content = content,
-                    Created = DateTime.Parse(created)
+                    Created = DateTime.Now//DateTime.Parse(created)
                 };
                 commentService.Comment(model);
                 await this.Clients.All.SendAsync("Comment", userName, newsId, content, created);

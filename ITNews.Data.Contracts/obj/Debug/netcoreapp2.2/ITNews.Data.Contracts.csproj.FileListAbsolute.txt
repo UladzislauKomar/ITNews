@@ -1,9 +1,0 @@
-C:\Users\komar\source\repos\ITNews\ITNews.Data.Contracts\bin\Debug\netcoreapp2.2\ITNews.Data.Contracts.deps.json
-C:\Users\komar\source\repos\ITNews\ITNews.Data.Contracts\bin\Debug\netcoreapp2.2\ITNews.Data.Contracts.dll
-C:\Users\komar\source\repos\ITNews\ITNews.Data.Contracts\obj\Debug\netcoreapp2.2\ITNews.Data.Contracts.csprojAssemblyReference.cache
-C:\Users\komar\source\repos\ITNews\ITNews.Data.Contracts\obj\Debug\netcoreapp2.2\ITNews.Data.Contracts.csproj.CoreCompileInputs.cache
-C:\Users\komar\source\repos\ITNews\ITNews.Data.Contracts\obj\Debug\netcoreapp2.2\ITNews.Data.Contracts.AssemblyInfoInputs.cache
-C:\Users\komar\source\repos\ITNews\ITNews.Data.Contracts\obj\Debug\netcoreapp2.2\ITNews.Data.Contracts.AssemblyInfo.cs
-C:\Users\komar\source\repos\ITNews\ITNews.Data.Contracts\bin\Debug\netcoreapp2.2\ITNews.Data.Contracts.pdb
-C:\Users\komar\source\repos\ITNews\ITNews.Data.Contracts\obj\Debug\netcoreapp2.2\ITNews.Data.Contracts.dll
-C:\Users\komar\source\repos\ITNews\ITNews.Data.Contracts\obj\Debug\netcoreapp2.2\ITNews.Data.Contracts.pdb
