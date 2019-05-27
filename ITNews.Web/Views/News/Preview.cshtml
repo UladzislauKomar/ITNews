@@ -1,0 +1,98 @@
+﻿@model IList<ITNews.Domain.Contracts.ViewModels.NewsViewModel>
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Preview</title>
+
+	<link rel="stylesheet" href="~/css/previewCss/main.css">
+</head>
+<body>
+
+	<script src="~/js/previewJs/jquery.min.js"></script>
+	<script src="~/js/previewJs/jquery.easings.min.js"></script>
+
+	<div class="skw-pages">
+		<div class="skw-page skw-page-1 active">
+			<div class="skw-page__half skw-page__half--left">
+				<div class="skw-page__skewed">
+					<div class="skw-page__content">
+						<h2 class="head">@Model[0].Title</h2>
+						<p class="description">@Model[0].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
+						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[0].NewsId" class="button skw-page__button light">подробнее</a>
+					</div>
+				</div>
+			</div>
+			<div class="skw-page__half skw-page__half--right">
+				<div class="skw-page__skewed">
+					<div class="skw-page__content">
+						<h2 class="head">@Model[1].Title</h2>
+						<p class="description">@Model[1].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
+						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[1].NewsId" class="button skw-page__button dark">подробнее</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="skw-page skw-page-2">
+			<div class="skw-page__half skw-page__half--left">
+				<div class="skw-page__skewed">
+					<div class="skw-page__content" style="background-image: url(@Model[2].Description)"></div>
+				</div>
+			</div>
+			<div class="skw-page__half skw-page__half--right">
+				<div class="skw-page__skewed">
+					<div class="skw-page__content">
+						<h2 class="head">@Model[2].Title</h2>
+						<p class="description">@Model[2].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
+						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[2].NewsId" class="button skw-page__button dark">подробнее</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="skw-page skw-page-3">
+			<div class="skw-page__half skw-page__half--left">
+				<div class="skw-page__skewed">
+					<div class="skw-page__content">
+						<h2 class="head">@Model[3].Title</h2>
+						<p class="description">@Model[3].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
+						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[3].NewsId" class="button skw-page__button light">подробнее</a>
+					</div>
+				</div>
+			</div>
+			<div class="skw-page__half skw-page__half--right">
+				<div class="skw-page__skewed">
+					<div class="skw-page__content" style="background-image: url(@Model[3].Description)">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="skw-page skw-page-4">
+			<div class="skw-page__half skw-page__half--left">
+				<div class="skw-page__skewed">
+					<div class="skw-page__content" style="background-image: url(@Model[4].Description)"></div>
+				</div>
+			</div>
+			<div class="skw-page__half skw-page__half--right">
+				<div class="skw-page__skewed">
+					<div class="skw-page__content">
+						<h2 class="head">@Model[4].Title</h2>
+						<p class="description">@Model[4].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
+						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[4].NewsId" class="button skw-page__button dark">подробнее</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<script src="~/js/previewJs/fit-text.js"></script>
+	<script src="~/js/previewJs/functions.js"></script>
+
+</body>
+</html>

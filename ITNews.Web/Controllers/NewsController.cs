@@ -273,5 +273,24 @@ namespace ITNews.Web.Controllers
                 throw exception;
             }
         }
+
+        [HttpGet]
+        public ActionResult Preview()
+        {
+            var models = newsService.GetNewsList().OrderByDescending(x => x.Created);
+            foreach (var model in models)
+            {
+                foreach (var item in model.Tags)
+                {
+                    item.Tag = tagService.GetTags().Single(x => x.TagId == item.TagId);
+                }
+                model.Comments = commentService.GetCommentsByNews(model);
+                model.User.Likes = commentLikeService.GetLikes().Where(x => x.Comment.UserId == model.User.Id);
+                model.Ratings = ratingService.GetRatingByNews(model);
+            }
+            var topModels = models.Where(x => x.Ratings.Count() > 0)
+                .OrderByDescending(x => x.Ratings.Select(rate => rate.Rating).Average()).Take(5).ToList();
+            return View(topModels);
+        }
     }
 }
