@@ -86,6 +86,10 @@ namespace ITNews.Domain.Implementation.Services
         public NewsViewModel Post(NewsViewModel model)
         {
             var entity = mapper.Map<NewsViewModel, NewsEntity>(model);
+            entity.Description = model.Description;
+            entity.UserId = model.UserId;
+            entity.Section = mapper.Map<SectionViewModel, SectionEntity>(model.Section);
+            entity.Created = DateTime.Now;
             var outputEntity = repository.Create(entity);
             var outputModel = mapper.Map<NewsEntity, NewsViewModel>(outputEntity);
             return outputModel;
