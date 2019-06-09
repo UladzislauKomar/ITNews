@@ -40,6 +40,7 @@ namespace ITNews.Data.Implementation.Repositories
                 .Include(x => x.Comments)
                 .Include(x => x.User)
                 .Include(x => x.Section)
+                .AsNoTracking()
                 .AsEnumerable();
             return output;
         }
@@ -52,6 +53,7 @@ namespace ITNews.Data.Implementation.Repositories
                 .Include(x => x.Comments)
                 .Include(x => x.User)
                 .Include(x => x.Section)
+                .AsNoTracking()
                 .Single(x => x.NewsId == entity.NewsId);
             return output;
         }

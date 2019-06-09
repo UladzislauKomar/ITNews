@@ -218,6 +218,7 @@ namespace ITNews.Web.Controllers
         }
 
         // GET: News/Edit/5
+        [HttpGet]
         public ActionResult Edit(string newsId)
         {
             var newsModel = new NewsViewModel
@@ -321,8 +322,12 @@ namespace ITNews.Web.Controllers
         public ActionResult Allow(string newsId)
         {
             try
-            {
-                var model = newsService.GetNewsDetails(newsId);
+            { 
+                var newsModel = new NewsViewModel()
+                {
+                    NewsId = newsId
+                };
+                var model = newsService.GetNewsDetails(newsModel);
                 model.IsAllowed = true;
                 newsService.Edit(model);
                 return RedirectToAction(nameof(Index));

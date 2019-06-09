@@ -53,8 +53,12 @@
 									@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", new { newsId = item.NewsId })
 									<span> | </span>
 									@Html.ActionLink(ViewData["Delete"].ToString(), "Delete", new { newsId = item.NewsId })
-									<span> | </span>
-									@Html.ActionLink(ViewData["Allow"].ToString(), "Allow", new { newsId = item.NewsId })
+									if (!item.IsAllowed)
+									{
+										<span> | </span>
+										@Html.ActionLink(ViewData["Allow"].ToString(), "Allow", new { newsId = item.NewsId })
+
+									}
 								}
 							</div>
 						</div>
