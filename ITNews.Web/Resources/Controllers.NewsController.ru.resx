@@ -195,4 +195,10 @@
   <data name="YouSure" xml:space="preserve">
     <value>Вы уверены, что хотите удалить новость?</value>
   </data>
+  <data name="Allow" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="NotAllowed" xml:space="preserve">
+    <value>НЕ ПОДТВЕРЖДЕНО</value>
+  </data>
 </root>

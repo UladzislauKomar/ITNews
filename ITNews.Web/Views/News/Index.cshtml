@@ -20,6 +20,10 @@
 										<a asp-action="Profile" asp-controller="User" asp-route-userName="@item.User.UserName"><strong>@item.User.UserName (@item.User.Likes.Count())</strong></a><span class="text-muted"> @ViewData["At"] @item.Created</span>
 									</div>
 									<div class="col-12">
+										@if (!item.IsAllowed)
+										{
+											<span class="badge badge-danger">@ViewData["NotAllowed"].ToString()</span>
+										}
 										<span class="badge badge-danger">@item.Section.Name</span>
 										@foreach (var tag in item.Tags)
 										{
@@ -49,6 +53,8 @@
 									@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", new { newsId = item.NewsId })
 									<span> | </span>
 									@Html.ActionLink(ViewData["Delete"].ToString(), "Delete", new { newsId = item.NewsId })
+									<span> | </span>
+									@Html.ActionLink(ViewData["Allow"].ToString(), "Allow", new { newsId = item.NewsId })
 								}
 							</div>
 						</div>
@@ -88,7 +94,7 @@
 				<div class="card-body">
 					@foreach (var item in (Dictionary<string, int>)ViewData["tagSize"])
 					{
-						<span style="font-size:@(item.Value)px">@item.Key</span>
+						<a asp-action="Index" asp-controller="News" asp-route-searchString="@item.Key"><span style="font-size:@(item.Value)px">@item.Key</span></a>
 					}
 				</div>
 			</div>

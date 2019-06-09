@@ -39,6 +39,7 @@ namespace ITNews.Domain.Implementation.Services
 
         public bool Edit(NewsViewModel model)
         {
+            //var entity = repository.Read().FirstOrDefault(x => x.NewsId == model.NewsId);
             var result = false;
             var entity = mapper.Map<NewsViewModel, NewsEntity>(model);
             try

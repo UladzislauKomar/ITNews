@@ -40,7 +40,14 @@ namespace ITNews.Web.Controllers
         [HttpGet]
         public ActionResult Index(string searchString = "")
         {
-            var models = newsService.GetNewsList().OrderByDescending(x => x.Created).AsEnumerable();
+            var previewFlag = Request.Cookies["previewFlag"];
+            //if (previewFlag != "true")
+            //{
+            //    return RedirectToAction("Preview", "News");
+            //}
+            var models = newsService.GetNewsList()
+                                    .OrderByDescending(x => x.Created)
+                                    .AsEnumerable();
             foreach (var model in models)
             {
                 foreach (var item in model.Tags)
@@ -71,7 +78,7 @@ namespace ITNews.Web.Controllers
                     continue;
                 }
                 double tagPercent = totalTagCount / tagNewsCount;
-                int tagSize = 6;
+                int tagSize = 12;
                 for (int i = 1; i <= 4; i*=2)
                 {
                     if (tagPercent <= i)
@@ -87,15 +94,24 @@ namespace ITNews.Web.Controllers
             ViewData["TagCloud"] = localizer["TagCloud"];
             ViewData["At"] = localizer["At"];
             ViewData["Delete"] = localizer["Delete"];
+            ViewData["Allow"] = localizer["Allow"];
+            ViewData["NotAllowed"] = localizer["NotAllowed"];
             ViewData["Edit"] = localizer["Edit"];
             ViewData["Search"] = localizer["Search"];
 
+            if (!User.IsInRole("admin"))
+            {
+                models = models.Where(x => x.IsAllowed);
+            }
             return View(models);
         }
 
         public ActionResult TopPosts()
         {
-            var models = newsService.GetNewsList().OrderByDescending(x => x.Created);
+            var models = newsService.GetNewsList()
+                                    .Where(x => x.IsAllowed)
+                                    .OrderByDescending(x => x.Created)
+                                    .AsEnumerable();
             foreach (var model in models)
             {
                 foreach (var item in model.Tags)
@@ -277,7 +293,10 @@ namespace ITNews.Web.Controllers
         [HttpGet]
         public ActionResult Preview()
         {
-            var models = newsService.GetNewsList().OrderByDescending(x => x.Created);
+            var models = newsService.GetNewsList()
+                                    .Where(x => x.IsAllowed)
+                                    .OrderByDescending(x => x.Created)
+                                    .AsEnumerable();
             foreach (var model in models)
             {
                 foreach (var item in model.Tags)
@@ -289,8 +308,29 @@ namespace ITNews.Web.Controllers
                 model.Ratings = ratingService.GetRatingByNews(model);
             }
             var topModels = models.Where(x => x.Ratings.Count() > 0)
-                .OrderByDescending(x => x.Ratings.Select(rate => rate.Rating).Average()).Take(5).ToList();
+                                  .OrderByDescending(x => x.Ratings.Select(rate => rate.Rating)
+                                                                   .Average())
+                                                                   .Take(5)
+                                                                   .ToList();
+            Response.Cookies.Append("previewFlag", "true", new CookieOptions() { Path = "/", Expires = DateTimeOffset.MaxValue});
             return View(topModels);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult Allow(string newsId)
+        {
+            try
+            {
+                var model = newsService.GetNewsDetails(newsId);
+                model.IsAllowed = true;
+                newsService.Edit(model);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
     }
 }

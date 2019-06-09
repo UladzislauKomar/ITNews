@@ -12,6 +12,7 @@ namespace ITNews.Data.Contracts.Entities
         public string Description { get; set; }
         public string Content { get; set; }
         public DateTime Created { get; set; }
+        public bool IsAllowed { get; set; }
 
         public string UserId { get; set; }
         public UserEntity User { get; set; }
