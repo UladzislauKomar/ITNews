@@ -88,8 +88,10 @@ namespace ITNews.Domain.Implementation.Services
             var entity = mapper.Map<NewsViewModel, NewsEntity>(model);
             entity.Description = model.Description;
             entity.UserId = model.UserId;
+            entity.SectionId = model.SectionId;
             entity.Section = mapper.Map<SectionViewModel, SectionEntity>(model.Section);
             entity.Created = DateTime.Now;
+            entity.OutUrl = model.OutUrl;
             var outputEntity = repository.Create(entity);
             var outputModel = mapper.Map<NewsEntity, NewsViewModel>(outputEntity);
             return outputModel;

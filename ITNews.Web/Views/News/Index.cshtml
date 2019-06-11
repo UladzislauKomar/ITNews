@@ -22,7 +22,7 @@
 									<div class="col-12">
 										@if (!item.IsAllowed)
 										{
-											<span class="badge badge-danger">@ViewData["NotAllowed"].ToString()</span>
+											<span class="badge badge-info">@ViewData["NotAllowed"].ToString()</span>
 										}
 										<span class="badge badge-danger">@item.Section.Name</span>
 										@foreach (var tag in item.Tags)
@@ -32,7 +32,14 @@
 									</div>
 									<div class="col-12">
 										<h4>
-											@Html.ActionLink(item.Title, "Details", new { newsId = item.NewsId })
+											@if (item.OutUrl != null)
+											{
+												<a href="@item.OutUrl">@item.Title</a>
+											}
+											else
+											{
+												@Html.ActionLink(item.Title, "Details", new { newsId = item.NewsId })
+											}
 										</h4>
 									</div>
 								</div>
@@ -102,6 +109,14 @@
 					}
 				</div>
 			</div>
+			@if (User.IsInRole("admin"))
+			{
+				<div class="card bg-light mb-3" style="max-width: 20rem;">
+					<div class="card-body">
+						<a asp-action="ParseNews" asp-controller="News" class="btn btn-danger">Parse news</a>
+					</div>
+				</div>
+			}
 		</div>
 	</div>
 </div>

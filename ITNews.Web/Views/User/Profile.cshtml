@@ -19,7 +19,14 @@
 							</div>
 							<div class="col-12">
 								<h4>
-									@Html.ActionLink(item.Title, "Details", "News", new { newsId = item.NewsId })
+									@if (item.OutUrl != null)
+									{
+										<a href="@item.OutUrl">@item.Title</a>
+									}
+									else
+									{
+										@Html.ActionLink(item.Title, "Details", "News", new { newsId = item.NewsId })
+									}
 								</h4>
 							</div>
 						</div>

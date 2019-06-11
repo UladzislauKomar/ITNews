@@ -26,8 +26,14 @@
 				<div class="skw-page__skewed">
 					<div class="skw-page__content">
 						<h2 class="head">@Model[0].Title</h2>
-						<p class="description">@Model[0].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
-						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[0].NewsId" class="button skw-page__button light">подробнее</a>
+						@if (Model[0].OutUrl != null)
+						{
+							<a class="button skw-page__button dark" href="@Model[0].OutUrl">подробнее</a>
+						}
+						else
+						{
+							<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[0].NewsId" class="button skw-page__button dark">подробнее</a>
+						}
 					</div>
 				</div>
 			</div>
@@ -35,8 +41,14 @@
 				<div class="skw-page__skewed">
 					<div class="skw-page__content">
 						<h2 class="head">@Model[1].Title</h2>
-						<p class="description">@Model[1].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
-						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[1].NewsId" class="button skw-page__button dark">подробнее</a>
+						@if (Model[1].OutUrl != null)
+						{
+							<a class="button skw-page__button dark" href="@Model[1].OutUrl">подробнее</a>
+						}
+						else
+						{
+							<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[1].NewsId" class="button skw-page__button dark">подробнее</a>
+						}
 					</div>
 				</div>
 			</div>
@@ -51,8 +63,14 @@
 				<div class="skw-page__skewed">
 					<div class="skw-page__content">
 						<h2 class="head">@Model[2].Title</h2>
-						<p class="description">@Model[2].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
-						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[2].NewsId" class="button skw-page__button dark">подробнее</a>
+						@if (Model[2].OutUrl != null)
+						{
+							<a class="button skw-page__button dark" href="@Model[2].OutUrl">подробнее</a>
+						}
+						else
+						{
+							<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[2].NewsId" class="button skw-page__button dark">подробнее</a>
+						}
 					</div>
 				</div>
 			</div>
@@ -62,8 +80,14 @@
 				<div class="skw-page__skewed">
 					<div class="skw-page__content">
 						<h2 class="head">@Model[3].Title</h2>
-						<p class="description">@Model[3].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
-						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[3].NewsId" class="button skw-page__button light">подробнее</a>
+						@if (Model[3].OutUrl != null)
+						{
+							<a class="button skw-page__button dark" href="@Model[3].OutUrl">подробнее</a>
+						}
+						else
+						{
+							<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[3].NewsId" class="button skw-page__button dark">подробнее</a>
+						}
 					</div>
 				</div>
 			</div>
@@ -84,13 +108,19 @@
 				<div class="skw-page__skewed">
 					<div class="skw-page__content">
 						<h2 class="head">@Model[4].Title</h2>
-						<p class="description">@Model[4].Content.Split('.', '(', ';', ':')[0].TrimEnd()...</p>
-						<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[4].NewsId" class="button skw-page__button dark">подробнее</a>
+						@if (Model[4].OutUrl != null)
+						{
+							<a class="button skw-page__button dark" href="@Model[4].OutUrl">подробнее</a>
+						}
+						else
+						{
+							<a asp-controller="News" asp-action="Details" asp-route-newsId="@Model[4].NewsId" class="button skw-page__button dark">подробнее</a>
+						}
 					</div>
 				</div>
 			</div>
 		</div>
-
+	</div>
 	<script src="~/js/previewJs/fit-text.js"></script>
 	<script src="~/js/previewJs/functions.js"></script>
 

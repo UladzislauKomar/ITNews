@@ -31,6 +31,7 @@ namespace ITNews.Infrastructure
                 .ForMember(d => d.Tags, m => m.MapFrom(s => s.Tags))
                 .ForMember(d => d.Ratings, m => m.MapFrom(s => s.Ratings))
                 .ForMember(d => d.Comments, m => m.MapFrom(s => s.Comments))
+                .ForMember(d => d.OutUrl, m => m.MapFrom(s => s.OutUrl))
                 .ForAllOtherMembers(m => m.Ignore());
             CreateMap<NewsViewModel, NewsEntity>()
                 .ForMember(d => d.NewsId, m => m.MapFrom(s => s.NewsId))
@@ -46,6 +47,7 @@ namespace ITNews.Infrastructure
                 //.ForMember(d => d.Tags, m => m.MapFrom(s => s.Tags))
                 //.ForMember(d => d.Ratings, m => m.MapFrom(s => s.Ratings))
                 //.ForMember(d => d.Comments, m => m.MapFrom(s => s.Comments))
+                //.ForMember(d => d.OutUrl, m => m.MapFrom(s => s.OutUrl))
                 .ForAllOtherMembers(m => m.Ignore());
 
             CreateMap<NewsTagEntity, NewsTagViewModel>();
