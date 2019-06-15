@@ -20,6 +20,10 @@
 										<a asp-action="Profile" asp-controller="User" asp-route-userName="@item.User.UserName"><strong>@item.User.UserName (@item.User.Likes.Count())</strong></a><span class="text-muted"> @ViewData["At"] @item.Created</span>
 									</div>
 									<div class="col-12">
+										@if (!item.IsAllowed)
+										{
+											<span class="badge badge-info">@ViewData["NotAllowed"].ToString()</span>
+										}
 										<span class="badge badge-danger">@item.Section.Name</span>
 										@foreach (var tag in item.Tags)
 										{
@@ -28,7 +32,14 @@
 									</div>
 									<div class="col-12">
 										<h4>
-											@Html.ActionLink(item.Title, "Details", new { newsId = item.NewsId })
+											@if (item.OutUrl != null)
+											{
+												<a href="@item.OutUrl">@item.Title</a>
+											}
+											else
+											{
+												@Html.ActionLink(item.Title, "Details", new { newsId = item.NewsId })
+											}
 										</h4>
 									</div>
 								</div>
@@ -49,6 +60,12 @@
 									@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", new { newsId = item.NewsId })
 									<span> | </span>
 									@Html.ActionLink(ViewData["Delete"].ToString(), "Delete", new { newsId = item.NewsId })
+									if (!item.IsAllowed)
+									{
+										<span> | </span>
+										@Html.ActionLink(ViewData["Allow"].ToString(), "Allow", new { newsId = item.NewsId })
+
+									}
 								}
 							</div>
 						</div>
@@ -88,10 +105,18 @@
 				<div class="card-body">
 					@foreach (var item in (Dictionary<string, int>)ViewData["tagSize"])
 					{
-						<span style="font-size:@(item.Value)px">@item.Key</span>
+						<a asp-action="Index" asp-controller="News" asp-route-searchString="@item.Key"><span style="font-size:@(item.Value)px">@item.Key</span></a>
 					}
 				</div>
 			</div>
+			@if (User.IsInRole("admin"))
+			{
+				<div class="card bg-light mb-3" style="max-width: 20rem;">
+					<div class="card-body">
+						<a asp-action="ParseNews" asp-controller="News" class="btn btn-danger">Parse news</a>
+					</div>
+				</div>
+			}
 		</div>
 	</div>
 </div>

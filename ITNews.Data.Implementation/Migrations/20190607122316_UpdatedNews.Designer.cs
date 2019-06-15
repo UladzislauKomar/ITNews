@@ -4,14 +4,16 @@ using ITNews.Data.Implementation.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ITNews.Data.Implementation.Migrations
 {
     [DbContext(typeof(ITNewsDbContext))]
-    partial class ITNewsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190607122316_UpdatedNews")]
+    partial class UpdatedNews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,8 +73,6 @@ namespace ITNews.Data.Implementation.Migrations
                     b.Property<string>("Description");
 
                     b.Property<bool>("IsAllowed");
-
-                    b.Property<string>("OutUrl");
 
                     b.Property<string>("SectionId");
 

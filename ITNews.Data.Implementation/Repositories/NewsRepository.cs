@@ -27,8 +27,8 @@ namespace ITNews.Data.Implementation.Repositories
 
         public void Delete(NewsEntity entity)
         {
-            context.News.Attach(entity);
-            context.News.Remove(entity);
+            var entry = context.Entry(entity);
+            entry.State = EntityState.Deleted;
             context.SaveChanges();
         }
 
@@ -40,6 +40,7 @@ namespace ITNews.Data.Implementation.Repositories
                 .Include(x => x.Comments)
                 .Include(x => x.User)
                 .Include(x => x.Section)
+                .AsNoTracking()
                 .AsEnumerable();
             return output;
         }
@@ -52,17 +53,15 @@ namespace ITNews.Data.Implementation.Repositories
                 .Include(x => x.Comments)
                 .Include(x => x.User)
                 .Include(x => x.Section)
+                .AsNoTracking()
                 .Single(x => x.NewsId == entity.NewsId);
             return output;
         }
 
         public void Update(NewsEntity entity)
         {
-            context.News.Attach(entity);
             var entry = context.Entry(entity);
-            entry.Property(e => e.Content).IsModified = true;
-            //entry.Property(e => e.Description).IsModified = true;
-            entry.Property(e => e.Title).IsModified = true;
+            entry.State = EntityState.Modified;
             context.SaveChanges();
         }
     }

@@ -195,4 +195,10 @@
   <data name="YouSure" xml:space="preserve">
     <value>Are you sure you want to delete this?</value>
   </data>
+  <data name="Allow" xml:space="preserve">
+    <value>Allow</value>
+  </data>
+  <data name="NotAllowed" xml:space="preserve">
+    <value>NOT ALLOWED YET</value>
+  </data>
 </root>

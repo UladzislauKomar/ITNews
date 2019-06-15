@@ -50,9 +50,8 @@ namespace ITNews.Data.Implementation.Repositories
 
         public void Update(SectionEntity entity)
         {
-            context.Sections.Attach(entity);
             var entry = context.Entry(entity);
-            entry.Property(e => e.Name).IsModified = true;
+            entry.State = EntityState.Modified;
             context.SaveChanges();
         }
     }

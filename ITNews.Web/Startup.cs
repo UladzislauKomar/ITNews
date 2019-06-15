@@ -11,6 +11,7 @@ using ITNews.Data.Implementation.Repositories;
 using ITNews.Domain.Contracts.Services;
 using ITNews.Domain.Contracts.ViewModels;
 using ITNews.Domain.Implementation.Services;
+using ITNews.Domain.Implementation.Services.Parsers;
 using ITNews.Infrastructure;
 using ITNews.Web.Hubs;
 using Microsoft.AspNetCore.Builder;
@@ -88,6 +89,10 @@ namespace ITNews.Web
             services.AddScoped<ISectionService, SectionService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddSingleton<INewsParserService, TutByNewsParserService>();
+            services.AddSingleton<INewsParserService, OnlinerNewsParserService>();
+            services.AddSingleton<INewsParserService, BudnyNewsParserService>();
 
             services.AddTransient<IEmailSenderService, EmailSenderService>();
 
