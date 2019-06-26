@@ -1,0 +1,12 @@
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\bin\Debug\netcoreapp2.2\ITNews.Domain.Contracts.deps.json
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\bin\Debug\netcoreapp2.2\ITNews.Domain.Contracts.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\bin\Debug\netcoreapp2.2\ITNews.Domain.Contracts.pdb
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.Abstractions.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.Abstractions.xml
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\obj\Debug\netcoreapp2.2\ITNews.Domain.Contracts.csprojAssemblyReference.cache
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\obj\Debug\netcoreapp2.2\ITNews.Domain.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\obj\Debug\netcoreapp2.2\ITNews.Domain.Contracts.AssemblyInfoInputs.cache
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\obj\Debug\netcoreapp2.2\ITNews.Domain.Contracts.AssemblyInfo.cs
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\obj\Debug\netcoreapp2.2\ITNews.Domain.Contracts.csproj.CopyComplete
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\obj\Debug\netcoreapp2.2\ITNews.Domain.Contracts.dll
+C:\Users\komar\source\repos\ITNews\ITNews.Domain.Contracts\obj\Debug\netcoreapp2.2\ITNews.Domain.Contracts.pdb
