@@ -2,7 +2,7 @@
 @model IEnumerable<ITNews.Domain.Contracts.ViewModels.NewsViewModel>
 
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "Home";
 	Layout = "~/Views/Shared/_CustomLayout.cshtml";
 }
 
@@ -57,8 +57,11 @@
 
 								@if (item.User.UserName == User.Identity.Name || User.IsInRole("admin"))
 								{
-									@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", new { newsId = item.NewsId })
-									<span> | </span>
+									if (item.OutUrl == null)
+									{
+										@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", new { newsId = item.NewsId })
+										<span> | </span>
+									}
 									@Html.ActionLink(ViewData["Delete"].ToString(), "Delete", new { newsId = item.NewsId })
 									if (!item.IsAllowed)
 									{
@@ -78,10 +81,10 @@
 				<div class="card bg-light mb-3" style="max-width: 20rem;">
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-6 col-sm-4 col-lg-8" style="padding-right:0; width:inherit;">
+							<div class="col-md-6 col-sm-8 col-lg-8" style="padding-right:0; width:inherit;">
 								<input class="form-control" type="text" placeholder="@ViewData["Search"]" name="searchString">
 							</div>
-							<div class="col-md-6 col-sm-4 col-lg-4">
+							<div class="col-md-6 col-sm-2 col-lg-4">
 								<button class="btn btn-secondary" type="submit">@ViewData["Search"]</button>
 							</div>
 						</div>

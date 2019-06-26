@@ -45,10 +45,10 @@ namespace ITNews.Web.Controllers
         public ActionResult Index(string searchString = "")
         {
             var previewFlag = Request.Cookies["previewFlag"];
-            if (previewFlag != "true")
-            {
-                return RedirectToAction("Preview", "News");
-            }
+            //if (previewFlag != "true")
+            //{
+            //    return RedirectToAction("Preview", "News");
+            //}
             var models = newsService.GetNewsList()
                                     .OrderByDescending(x => x.Created)
                                     .AsEnumerable();
@@ -315,9 +315,13 @@ namespace ITNews.Web.Controllers
             var topModels = models.Where(x => x.Ratings.Count() > 0)
                                   .OrderByDescending(x => x.Ratings.Select(rate => rate.Rating)
                                                                    .Average())
-                                                                   .Take(5)
-                                                                   .ToList();
+                                  .Take(5)
+                                  .ToList();
             Response.Cookies.Append("previewFlag", "true", new CookieOptions() { Path = "/", Expires = DateTimeOffset.MaxValue});
+            if (topModels.Count < 5)
+            {
+                return RedirectToAction("Index", "News");
+            }
             return View(topModels);
         }
 
