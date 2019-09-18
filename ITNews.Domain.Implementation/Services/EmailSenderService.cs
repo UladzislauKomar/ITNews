@@ -22,7 +22,7 @@ namespace ITNews.Domain.Implementation.Services
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync("smtp.mail.ru", 465, true);
-                await client.AuthenticateAsync("komarvlad15899@mail.ru", "kamazzer15899");
+                await client.AuthenticateAsync("myemail", "mypassword");
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);
