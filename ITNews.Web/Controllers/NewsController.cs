@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using ITNews.Domain.Contracts.Services;
 using ITNews.Domain.Contracts.ViewModels;
+using ITNews.Domain.Implementation.Services.Parsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
 namespace ITNews.Web.Controllers
@@ -21,10 +23,11 @@ namespace ITNews.Web.Controllers
         private readonly ICommentService commentService;
         private readonly INewsTagService newsTagService;
         private readonly ICommentLikeService commentLikeService;
+        private readonly IServiceProvider serviceProvider;
 
         private readonly IStringLocalizer<NewsController> localizer;
 
-        public NewsController(INewsService newsService, INewsRatingService ratingService, IUserService userService, ISectionService sectionService, ITagService tagService, ICommentService commentService, INewsTagService newsTagService, ICommentLikeService commentLikeService, IStringLocalizer<NewsController> localizer)
+        public NewsController(INewsService newsService, INewsRatingService ratingService, IUserService userService, ISectionService sectionService, ITagService tagService, ICommentService commentService, INewsTagService newsTagService, ICommentLikeService commentLikeService, IServiceProvider serviceProvider, IStringLocalizer<NewsController> localizer)
         {
             this.newsService = newsService;
             this.ratingService = ratingService;
@@ -34,13 +37,21 @@ namespace ITNews.Web.Controllers
             this.commentService = commentService;
             this.newsTagService = newsTagService;
             this.commentLikeService = commentLikeService;
+            this.serviceProvider = serviceProvider;
             this.localizer = localizer;
         }
 
         [HttpGet]
         public ActionResult Index(string searchString = "")
         {
-            var models = newsService.GetNewsList().OrderByDescending(x => x.Created).AsEnumerable();
+            var previewFlag = Request.Cookies["previewFlag"];
+            //if (previewFlag != "true")
+            //{
+            //    return RedirectToAction("Preview", "News");
+            //}
+            var models = newsService.GetNewsList()
+                                    .OrderByDescending(x => x.Created)
+                                    .AsEnumerable();
             foreach (var model in models)
             {
                 foreach (var item in model.Tags)
@@ -71,7 +82,7 @@ namespace ITNews.Web.Controllers
                     continue;
                 }
                 double tagPercent = totalTagCount / tagNewsCount;
-                int tagSize = 6;
+                int tagSize = 12;
                 for (int i = 1; i <= 4; i*=2)
                 {
                     if (tagPercent <= i)
@@ -87,15 +98,24 @@ namespace ITNews.Web.Controllers
             ViewData["TagCloud"] = localizer["TagCloud"];
             ViewData["At"] = localizer["At"];
             ViewData["Delete"] = localizer["Delete"];
+            ViewData["Allow"] = localizer["Allow"];
+            ViewData["NotAllowed"] = localizer["NotAllowed"];
             ViewData["Edit"] = localizer["Edit"];
             ViewData["Search"] = localizer["Search"];
 
+            if (!User.IsInRole("admin"))
+            {
+                models = models.Where(x => x.IsAllowed);
+            }
             return View(models);
         }
 
         public ActionResult TopPosts()
         {
-            var models = newsService.GetNewsList().OrderByDescending(x => x.Created);
+            var models = newsService.GetNewsList()
+                                    .Where(x => x.IsAllowed)
+                                    .OrderByDescending(x => x.Created)
+                                    .AsEnumerable();
             foreach (var model in models)
             {
                 foreach (var item in model.Tags)
@@ -202,6 +222,7 @@ namespace ITNews.Web.Controllers
         }
 
         // GET: News/Edit/5
+        [HttpGet]
         public ActionResult Edit(string newsId)
         {
             var newsModel = new NewsViewModel
@@ -277,7 +298,10 @@ namespace ITNews.Web.Controllers
         [HttpGet]
         public ActionResult Preview()
         {
-            var models = newsService.GetNewsList().OrderByDescending(x => x.Created);
+            var models = newsService.GetNewsList()
+                                    .Where(x => x.IsAllowed)
+                                    .OrderByDescending(x => x.Created)
+                                    .AsEnumerable();
             foreach (var model in models)
             {
                 foreach (var item in model.Tags)
@@ -289,8 +313,74 @@ namespace ITNews.Web.Controllers
                 model.Ratings = ratingService.GetRatingByNews(model);
             }
             var topModels = models.Where(x => x.Ratings.Count() > 0)
-                .OrderByDescending(x => x.Ratings.Select(rate => rate.Rating).Average()).Take(5).ToList();
+                                  .OrderByDescending(x => x.Ratings.Select(rate => rate.Rating)
+                                                                   .Average())
+                                  .Take(5)
+                                  .ToList();
+            Response.Cookies.Append("previewFlag", "true", new CookieOptions() { Path = "/", Expires = DateTimeOffset.MaxValue});
+            if (topModels.Count < 5)
+            {
+                return RedirectToAction("Index", "News");
+            }
             return View(topModels);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult Allow(string newsId)
+        {
+            try
+            { 
+                var newsModel = new NewsViewModel()
+                {
+                    NewsId = newsId
+                };
+                var model = newsService.GetNewsDetails(newsModel);
+                model.IsAllowed = true;
+                newsService.Edit(model);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult ParseNews()
+        {
+            try
+            {
+                var tutByParseService = serviceProvider.GetServices<INewsParserService>().First(x => x.GetType() == typeof(TutByNewsParserService));
+                var tutByModels = tutByParseService.ParseNews();
+                var onlinerParseService = serviceProvider.GetServices<INewsParserService>().First(x => x.GetType() == typeof(OnlinerNewsParserService));
+                var onlinerModels = onlinerParseService.ParseNews();
+                //var budnyParseService = serviceProvider.GetServices<INewsParserService>().First(x => x.GetType() == typeof(BudnyNewsParserService));
+                //var budnyModels = budnyParseService.ParseNews();
+                var models = tutByModels.Concat(onlinerModels);
+                foreach (var model in models)
+                {
+                    newsService.Post(model);
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+
+        [HttpGet]
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Help()
+        {
+            return View();
         }
     }
 }

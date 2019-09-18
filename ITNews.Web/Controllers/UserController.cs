@@ -180,7 +180,7 @@ namespace ITNews.Web.Controllers
             var user = await userService.GetCurrentUserAsync(HttpContext);
             if (!user.EmailConfirmed)
             {
-                var confirmationLink = "https://localhost:44373" + Url.Action("ConfirmedEmail", "User", new { userId = user.Id, token = user.SecurityStamp });
+                var confirmationLink = "http://notrealkomar-001-site1.btempurl.com/" + Url.Action("ConfirmedEmail", "User", new { userId = user.Id, token = user.SecurityStamp });
                 var message = $"Click this <a href=\"{confirmationLink}\">link</a> to confirm your email";
                 await emailSenderService.SendEmailAsync(user.Email, "Email Confirmation", message);
 

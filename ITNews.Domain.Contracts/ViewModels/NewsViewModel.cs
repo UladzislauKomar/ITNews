@@ -13,6 +13,8 @@ namespace ITNews.Domain.Contracts.ViewModels
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
         public DateTime Created { get; set; }
+        public bool IsAllowed { get; set; }
+        public string OutUrl { get; set; }
 
         public string UserId { get; set; }
         public UserViewModel User { get; set; }

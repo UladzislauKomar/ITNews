@@ -2,7 +2,7 @@
 @model IEnumerable<ITNews.Domain.Contracts.ViewModels.NewsViewModel>
 
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "Home";
 	Layout = "~/Views/Shared/_CustomLayout.cshtml";
 }
 
@@ -20,6 +20,10 @@
 										<a asp-action="Profile" asp-controller="User" asp-route-userName="@item.User.UserName"><strong>@item.User.UserName (@item.User.Likes.Count())</strong></a><span class="text-muted"> @ViewData["At"] @item.Created</span>
 									</div>
 									<div class="col-12">
+										@if (!item.IsAllowed)
+										{
+											<span class="badge badge-info">@ViewData["NotAllowed"].ToString()</span>
+										}
 										<span class="badge badge-danger">@item.Section.Name</span>
 										@foreach (var tag in item.Tags)
 										{
@@ -28,7 +32,14 @@
 									</div>
 									<div class="col-12">
 										<h4>
-											@Html.ActionLink(item.Title, "Details", new { newsId = item.NewsId })
+											@if (item.OutUrl != null)
+											{
+												<a href="@item.OutUrl">@item.Title</a>
+											}
+											else
+											{
+												@Html.ActionLink(item.Title, "Details", new { newsId = item.NewsId })
+											}
 										</h4>
 									</div>
 								</div>
@@ -46,9 +57,18 @@
 
 								@if (item.User.UserName == User.Identity.Name || User.IsInRole("admin"))
 								{
-									@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", new { newsId = item.NewsId })
-									<span> | </span>
+									if (item.OutUrl == null)
+									{
+										@Html.ActionLink(ViewData["Edit"].ToString(), "Edit", new { newsId = item.NewsId })
+										<span> | </span>
+									}
 									@Html.ActionLink(ViewData["Delete"].ToString(), "Delete", new { newsId = item.NewsId })
+									if (!item.IsAllowed)
+									{
+										<span> | </span>
+										@Html.ActionLink(ViewData["Allow"].ToString(), "Allow", new { newsId = item.NewsId })
+
+									}
 								}
 							</div>
 						</div>
@@ -61,10 +81,10 @@
 				<div class="card bg-light mb-3" style="max-width: 20rem;">
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-6 col-sm-4 col-lg-8" style="padding-right:0; width:inherit;">
+							<div class="col-md-6 col-sm-8 col-lg-8" style="padding-right:0; width:inherit;">
 								<input class="form-control" type="text" placeholder="@ViewData["Search"]" name="searchString">
 							</div>
-							<div class="col-md-6 col-sm-4 col-lg-4">
+							<div class="col-md-6 col-sm-2 col-lg-4">
 								<button class="btn btn-secondary" type="submit">@ViewData["Search"]</button>
 							</div>
 						</div>
@@ -88,10 +108,18 @@
 				<div class="card-body">
 					@foreach (var item in (Dictionary<string, int>)ViewData["tagSize"])
 					{
-						<span style="font-size:@(item.Value)px">@item.Key</span>
+						<a asp-action="Index" asp-controller="News" asp-route-searchString="@item.Key"><span style="font-size:@(item.Value)px">@item.Key</span></a>
 					}
 				</div>
 			</div>
+			@if (User.IsInRole("admin"))
+			{
+				<div class="card bg-light mb-3" style="max-width: 20rem;">
+					<div class="card-body">
+						<a asp-action="ParseNews" asp-controller="News" class="btn btn-danger">Parse news</a>
+					</div>
+				</div>
+			}
 		</div>
 	</div>
 </div>

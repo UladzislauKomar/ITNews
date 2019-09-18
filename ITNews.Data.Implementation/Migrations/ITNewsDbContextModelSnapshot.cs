@@ -70,6 +70,10 @@ namespace ITNews.Data.Implementation.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<bool>("IsAllowed");
+
+                    b.Property<string>("OutUrl");
+
                     b.Property<string>("SectionId");
 
                     b.Property<string>("Title");
